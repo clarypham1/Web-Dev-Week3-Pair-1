@@ -22,6 +22,16 @@ function addOne(sender, message, rating, platform) {
     return newFeedback;
 }
 
+function findById(id){
+    const feedback = feedbackList.find((item) => item.id ==id);
+
+    if (feedback){
+        return feedback;
+    }
+
+    return false;
+}
+
 if (require.main === module) {
     const result = addOne(
         "John Smith",
@@ -40,4 +50,5 @@ console.log("getAll called:", getAll());
 module.exports = {
     addOne,
     getAll,
+    findById,
 };
