@@ -22,14 +22,35 @@ function addOne(sender, message, rating, platform) {
     return newFeedback;
 }
 
-function findById(id){
-    const feedback = feedbackList.find((item) => item.id ==id);
+function findById(id) {
+    const feedback = feedbackList.find((item) => item.id == id);
 
-    if (feedback){
+    if (feedback) {
         return feedback;
     }
 
     return false;
+}
+
+function update(id, updatedData) {
+    const feedback = findById(id);
+    if (feedback) {
+        if (updatedData.sender) {
+            feedback.sender = updatedData.sender;
+        }
+        if (updatedData.message) {
+            feedback.message = updatedData.message;
+        }
+        if (updatedData.rating) {
+            feedback.rating = updatedData.rating;
+        }
+        if (updatedData.platform) {
+            feedback.platform = updatedData.platform;
+        }
+        return feedback;
+    } else {
+        return false;
+    }
 }
 
 if (require.main === module) {
@@ -51,4 +72,5 @@ module.exports = {
     addOne,
     getAll,
     findById,
+    update
 };
