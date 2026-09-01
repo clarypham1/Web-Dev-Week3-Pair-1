@@ -7,12 +7,17 @@ const getAllFeedbacks = (req, res) => {
 
 const createFeedback = (req, res) => {
     const { sender, message, rating, platform } = req.body;
+    if (!sender || !message || !rating || !platform || rating < 1 || rating > 5) {
+        return res.status(400).json({
+            message: "Invalid feedback",
+        });
+    }
     const newFeedback = Feedback.addOne(
         sender,
         message,
         rating,
         platform
-    );
+    )
 
     if (newFeedback) {
         res.status(201).json(newFeedback);
@@ -49,10 +54,10 @@ const deleteFeedback = (req, res) => {
     const feedbackId = req.params.feedbackId;
     const isDeleted = Feedback.deleteById(feedbackId);
 
-    if(isDeleted){
+    if (isDeleted) {
         res.json({ message: "Feedback deleted successfully" });
     } else {
-        res.status(404).json({ message: "Feedback not found" });            
+        res.status(404).json({ message: "Feedback not found" });
     }
 };
 
